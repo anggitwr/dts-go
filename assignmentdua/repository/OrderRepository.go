@@ -36,18 +36,15 @@ func (or *OrderRepository) Delete(order_id int) error {
 	tx := or.db.Unscoped().Delete(&model.Order{}, "order_id = ?", order_id)
 	return tx.Error
 }
-func (or *OrderRepository) Update(orderID int, updatedOrder model.Order) error {
+func (or *OrderRepository) Update(order_id int, updatedOrder model.Order) error {
 
 	var existingOrder model.Order
-	result := or.db.First(&existingOrder, orderID)
+	result := or.db.First(&existingOrder, order_id)
 	if result.Error != nil {
 		return result.Error
 	}
 
 	existingOrder.CustomerName = updatedOrder.CustomerName
-	for _, newItem := range updatedOrder.Item {
-		existingOrder.Item = append(existingOrder.Item, newItem)
-	}
 
 	tx := or.db.Save(&existingOrder)
 	return tx.Error
