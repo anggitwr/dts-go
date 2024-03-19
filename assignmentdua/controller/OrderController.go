@@ -56,7 +56,7 @@ func (oc *orderController) GetAll(ctx *gin.Context) {
 
 func (oc *orderController) Delete(ctx *gin.Context) {
 
-	idString := ctx.Param("id")
+	idString := ctx.Param("orderId")
 	// fmt.Println(idString)
 
 	idInt, err := strconv.Atoi(idString)
@@ -75,7 +75,7 @@ func (oc *orderController) Delete(ctx *gin.Context) {
 }
 
 func (oc *orderController) UpdateOrder(ctx *gin.Context) {
-	orderIDStr := ctx.Param("id")
+	orderIDStr := ctx.Param("orderId")
 	orderID, err := strconv.Atoi(orderIDStr)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{"error": "Invalid order ID"})

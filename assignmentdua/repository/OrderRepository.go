@@ -32,8 +32,7 @@ func (or *OrderRepository) GetAll() ([]model.Order, error) {
 }
 
 func (or *OrderRepository) Delete(order_id int) error {
-	// fmt.Println(uuid)
-	tx := or.db.Unscoped().Delete(&model.Order{}, "order_id = ?", order_id)
+	tx := or.db.Delete(&model.Order{}, "order_id = ?", order_id)
 	return tx.Error
 }
 func (or *OrderRepository) Update(order_id int, updatedOrder model.Order) error {
