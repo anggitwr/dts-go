@@ -20,8 +20,8 @@ func StartRouter(r *gin.Engine, db *gorm.DB) {
 		userRouter.POST("/register", ctrlUser.Register)
 
 		userRouter.POST("/login", ctrlUser.Login)
-		userRouter.PUT("/:userId", middleware.UserAuthorization(), ctrlUser.UpdateUser)
-		userRouter.DELETE("/:userId", middleware.UserAuthorization(), ctrlUser.DeleteUser)
+		userRouter.PUT("/:userId", middleware.Authentication(), ctrlUser.UpdateUser)
+		userRouter.DELETE("/:userId", middleware.Authentication(), ctrlUser.DeleteUser)
 	}
 
 	repoPhoto := repository.NewPhotoRepository(db)

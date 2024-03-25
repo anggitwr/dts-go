@@ -99,6 +99,8 @@ func (c *userController) UpdateUser(ctx *gin.Context) {
 	data.ID = uint(userData["id"].(float64))
 	data.Email = dataReq.Email
 	data.Username = dataReq.Username
+	data.Password = dataReq.Password
+	data.Age = dataReq.Age
 
 	ID := uint(userID)
 	_, err = c.srv.UpdateUser(*data, ID)
@@ -111,13 +113,13 @@ func (c *userController) UpdateUser(ctx *gin.Context) {
 
 func (c *userController) DeleteUser(ctx *gin.Context) {
 	paramKeyID := ctx.Param("userId")
-	commentID, _ := strconv.Atoi(paramKeyID)
-	ID := uint(commentID)
+	userID, _ := strconv.Atoi(paramKeyID)
+	ID := uint(userID)
 	err := c.srv.DeleteUser(ID)
 
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, helper.NewResponse(http.StatusBadRequest, nil, err.Error()))
 		return
 	}
-	ctx.JSON(http.StatusOK, helper.NewResponse(http.StatusOK, nil, "Deleted Comment Success"))
+	ctx.JSON(http.StatusOK, helper.NewResponse(http.StatusOK, nil, "Deleted User Success"))
 }

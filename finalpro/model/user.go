@@ -27,8 +27,6 @@ type ResponseUser struct {
 	DeletedAt gorm.DeletedAt
 	Username  string `gorm:"not null;unique;type:varchar(100)" json:"username" form:"username" valid:"required~Your username is required"`
 	Email     string `gorm:"not null;unique;type:varchar(100)" json:"email" form:"email" valid:"required~Your email is required,email~Invalid email format"`
-	Password  string `gorm:"not null" json:"password,omitempty" form:"password" valid:"required~Your password is required,minstringlength(6)~Password minimum lengths is 6 characters"`
-	Age       uint   `gorm:"not null" json:"age" form:"age" valid:"required~Your age is required"`
 }
 
 type RequestRegister struct {
