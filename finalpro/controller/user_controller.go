@@ -98,10 +98,9 @@ func (c *userController) UpdateUser(ctx *gin.Context) {
 	userData := ctx.MustGet("userData").(jwt.MapClaims)
 	data.ID = uint(userData["id"].(float64))
 	data.Email = dataReq.Email
-	data.Username = dataReq.Username
 	data.Password = dataReq.Password
+	data.Username = dataReq.Username
 	data.Age = dataReq.Age
-
 	ID := uint(userID)
 	_, err = c.srv.UpdateUser(*data, ID)
 	if err != nil {

@@ -62,25 +62,19 @@ func (service *userService) GetUserByID(ID uint) (model.ResponseUser, error) {
 	response.ID = resUser.ID
 	response.Username = resUser.Username
 	response.Email = resUser.Email
+	response.Age = resUser.Age
+
 	return response, nil
 }
 
 func (service *userService) UpdateUser(data model.User, ID uint) (model.User, error) {
-	entityPhoto := model.User{}
-	entityPhoto.ID = uint(ID)
-	entityPhoto.Email = data.Email
-	entityPhoto.Username = data.Username
-	getPhoto, err := service.repo.GetUserByID(ID)
-	if err != nil {
-		return model.User{}, err
-	}
-	if data.Email == "" {
-		entityPhoto.Email = getPhoto.Email
-	}
-	if data.Username == "" {
-		entityPhoto.Username = getPhoto.Username
-	}
-	update, err := service.repo.UpdateUser(entityPhoto)
+	entityUser := model.User{}
+	entityUser.ID = uint(ID)
+	entityUser.Email = data.Email
+	entityUser.Username = data.Username
+	entityUser.Age = data.Age
+	entityUser.Password = data.Password
+	update, err := service.repo.UpdateUser(entityUser)
 	if err != nil {
 		return model.User{}, err
 	}
