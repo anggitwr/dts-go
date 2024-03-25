@@ -8,7 +8,6 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
-	"github.com/golang-jwt/jwt/v5"
 )
 
 type UserController interface {
@@ -94,9 +93,6 @@ func (c *userController) UpdateUser(ctx *gin.Context) {
 		ctx.JSON(http.StatusBadRequest, helper.NewResponse(http.StatusBadRequest, nil, err.Error()))
 		return
 	}
-
-	userData := ctx.MustGet("userData").(jwt.MapClaims)
-	data.ID = uint(userData["id"].(float64))
 	data.Email = dataReq.Email
 	data.Password = dataReq.Password
 	data.Username = dataReq.Username

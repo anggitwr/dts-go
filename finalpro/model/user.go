@@ -27,7 +27,12 @@ type ResponseUser struct {
 	DeletedAt gorm.DeletedAt
 	Username  string `gorm:"not null;unique;type:varchar(100)" json:"username"`
 	Email     string `gorm:"not null;unique;type:varchar(100)" json:"email"`
-	Age       uint   `gorm:"not null" json:"age"`
+	Age       uint   `json:"age"`
+}
+
+type RequestUser struct {
+	Username string `json:"username" example:"test"`
+	Email    string `json:"email" example:"test@test.com"`
 }
 
 type RequestRegister struct {
@@ -70,7 +75,7 @@ func (u *User) BeforeUpdate(tx *gorm.DB) (err error) {
 		err = errUpdate
 		return
 	}
-
+	u.Password = helper.HashPass(u.Password)
 	err = nil
 	return
 }
